@@ -1,0 +1,54 @@
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+    </style>
+
+    <style name="ExpensesTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/expensesColorPrimary</item>
+        <item name="colorPrimaryDark">@color/expensesColorPrimaryDark</item>
+        <item name="colorAccent">@color/expensesColorAccent</item>
+    </style>
+
+    <style name="RecipesTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/recipesColorPrimary</item>
+        <item name="colorPrimaryDark">@color/recipesColorPrimaryDark</item>
+        <item name="colorAccent">@color/recipesColorAccent</item>
+    </style>
+
+    <style name="TextInputTheme" parent="Widget.Design.TextInputLayout">
+        <item name="android:textColorHint">@color/hintDefault</item>
+    </style>
+
+    <!-- Any changes remember to the version 21 -->
+    <style name="EdtDefaultTheme" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/colorTextEdtDefault</item>
+        <item name="android:tint">@color/colorBlack</item>
+    </style>
+
+    <style name="ButtonDefaultTheme" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:radius">5dp</item>
+    </style>
+
+    <style name="TitleTheme">
+        <item name="android:textColor">@color/colorTitle</item>
+        <item name="android:textSize">@dimen/title_text_size</item>
+    </style>
+
+    <style name="SubTitleTheme">
+        <item name="android:textColor">@color/colorSubTitle</item>
+        <item name="android:textSize">@dimen/subtitle_text_size</item>
+    </style>
+
+    <style name="EdtLoginTheme" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/colorTitle</item>
+        <item name="android:textColorHint">@color/colorHintEdtDefault</item>
+        <item name="android:background">@drawable/fundo_edt_login</item>
+    </style>
+</resources>

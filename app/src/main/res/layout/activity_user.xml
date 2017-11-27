@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.rest.controlefacil.ui.activity.user.UserActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_margin="32dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_email"
+            style="@style/TextInputTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edt_email"
+                style="@style/EdtDefaultTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/edt_email_hint"
+                android:inputType="textEmailAddress" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_password"
+            style="@style/TextInputTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_email"
+            android:layout_marginTop="16dp">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edt_password"
+                style="@style/EdtDefaultTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tv_password_hint"
+                android:inputType="textPassword" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_register"
+            style="@style/ButtonDefaultTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/til_password"
+            android:layout_marginTop="16dp"
+            android:layout_toRightOf="@id/tv_new_account"
+            android:text="@string/btn_register" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

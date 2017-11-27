@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.rest.controlefacil.ui.activity.privacy_policies.PrivacyPoliciesActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <TextView
+
+        android:id="@+id/privacy_title"
+        style="@style/TitleTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/tv_privacy_policies_title" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/privacy_title"
+        android:layout_margin="32dp">
+
+        <TextView
+            android:id="@+id/tv_forgot_message"
+            style="@style/SubTitleTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_info"
+            android:text="@string/tv_message_privacy_policies"
+            />
+    </RelativeLayout>
+
+
+</RelativeLayout>

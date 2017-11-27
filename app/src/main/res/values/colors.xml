@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default Color Theme -->
+    <color name="colorPrimary">#2196f3</color>
+    <color name="colorPrimaryLight">#6ec6ff</color>
+    <color name="colorPrimaryDark">#0069c0</color>
+    <color name="colorAccent">#1976d2</color>
+    <color name="colorSecundary">#1976d2</color>
+    <color name="colorSecondaryLight">#63a4ff</color>
+    <color name="colorSecondaryDark">#004ba0</color>
+    <color name="colorPrimaryText">#ffffff</color>
+    <color name="colorSecondaryText">#ffffff</color>
+    <color name="colorBackground">#ffffff</color>
+    <color name="colorTitle">#47525e</color>
+    <color name="colorSubTitle">#748b8d</color>
+    <color name="colorHintEdtDefault">#7d87d7</color>
+    <color name="colorBlack">#000000</color>
+    <color name="hintDefault">#a39494</color>
+    <color name="colorTextEdtDefault">#000000</color>
+
+    <!-- Recipes Color Theme -->
+    <color name="recipesColorPrimary">#4caf50</color>
+    <color name="recipesColorPrimaryLight">#80e27e</color>
+    <color name="recipesColorPrimaryDark">#087f23</color>
+    <color name="recipesColorAccent">#388e3c</color>
+    <color name="recipesColorSecundary">#388e3c</color>
+    <color name="recipesColorSecondaryLight">#6abf69</color>
+    <color name="recipesColorSecondaryDark">#00600f</color>
+    <color name="recipesColorPrimaryText">#ffffff</color>
+    <color name="recipesColorSecondaryText">#ffffff</color>
+
+    <!-- Expenses Color Theme -->
+    <color name="expensesColorPrimary">#f44336</color>
+    <color name="expensesColorPrimaryLight">#ff7961</color>
+    <color name="expensesColorPrimaryDark">#ba000d</color>
+    <color name="expensesColorAccent">#f44336</color>
+    <color name="expensesColorSecundary">#f44336</color>
+    <color name="expensesColorSecondaryLight">#ff7961</color>
+    <color name="expensesColorSecondaryDark">#ba000d</color>
+    <color name="expensesColorPrimaryText">#ffffff</color>
+    <color name="expensesColorSecondaryText">#ffffff</color>
+
+</resources>
