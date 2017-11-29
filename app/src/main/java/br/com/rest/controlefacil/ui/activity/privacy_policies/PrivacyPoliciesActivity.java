@@ -6,10 +6,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import br.com.rest.controlefacil.R;
+import br.com.rest.controlefacil.ui.activity.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PrivacyPoliciesActivity extends AppCompatActivity {
+public class PrivacyPoliciesActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -18,7 +19,7 @@ public class PrivacyPoliciesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy_policies);
-        ButterKnife.bind( this );
+        bindViews();
         setSupportActionBar( toolbar );
         getSupportActionBar().setTitle(R.string.privacy_policies_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled( true );

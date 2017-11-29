@@ -1,7 +1,12 @@
-package br.com.rest.controlefacil.domain.daos;
+package br.com.rest.controlefacil.domain.dao;
 
-import br.com.rest.controlefacil.domain.models.User;
+import javax.inject.Inject;
+
+import br.com.rest.controlefacil.ControleFacilApplication;
+import br.com.rest.controlefacil.domain.model.User;
 import io.realm.Realm;
+
+import static br.com.rest.controlefacil.ControleFacilApplication.getAppComponent;
 
 /**
  * Created by LUCAS RODRIGUES on 25/11/2017.
@@ -9,26 +14,11 @@ import io.realm.Realm;
 
 public class UserDAO {
 
-    private Realm realm;
+    @Inject
+    Realm realm;
 
     public UserDAO() {
-        realm = Realm.getDefaultInstance();
-    }
-
-    public void save(User user) {
-        realm.beginTransaction();
-        if (verifyIfExistsUserById(user.getId()))
-            user.setId(autoIncrementId());
-        else {
-            realm.copyToRealm(user);
-        }
-        realm.commitTransaction();
-    }
-
-    public void delete(User user) {
-        realm.beginTransaction();
-        user.deleteFromRealm();
-        realm.commitTransaction();
+        getAppComponent().inject(this);
     }
 
     public static Long autoIncrementId() {
@@ -40,6 +30,19 @@ public class UserDAO {
             e.printStackTrace();
         }
         return key;
+    }
+
+    public void save(User user) {
+        realm.beginTransaction();
+        user.setId(autoIncrementId());
+        realm.copyToRealm(user);
+        realm.commitTransaction();
+    }
+
+    public void delete(User user) {
+        realm.beginTransaction();
+        user.deleteFromRealm();
+        realm.commitTransaction();
     }
 
     public boolean login(User user) {

@@ -1,6 +1,6 @@
-package br.com.rest.controlefacil.ui.di;
+package br.com.rest.controlefacil.di.module.ui;
 
-import br.com.rest.controlefacil.domain.daos.UserDAO;
+import br.com.rest.controlefacil.ui.activity.BaseActivity;
 import br.com.rest.controlefacil.ui.activity.fotgot_password.ForgotPasswordContract;
 import br.com.rest.controlefacil.ui.activity.fotgot_password.ForgotPasswordPresenter;
 import br.com.rest.controlefacil.ui.activity.login.LoginContract;
@@ -21,16 +21,16 @@ public class UIModule {
     private static LoginContract.View loginView;
     private static UserContract.View userView;
 
-    public UIModule(ForgotPasswordContract.View view) {
-        this.forgotPasswordView = view;
+    public UIModule() {
     }
 
-    public UIModule(LoginContract.View view) {
-        this.loginView = view;
-    }
-
-    public UIModule(UserContract.View view) {
-        this.userView = view;
+    public UIModule(BaseActivity baseActivity) {
+        if (baseActivity instanceof LoginContract.View)
+            this.loginView = (LoginContract.View) baseActivity;
+        else if (baseActivity instanceof UserContract.View)
+            this.userView = (UserContract.View) baseActivity;
+        else if (baseActivity instanceof ForgotPasswordContract.View)
+            this.forgotPasswordView = (ForgotPasswordContract.View) baseActivity;
     }
 
     @Provides

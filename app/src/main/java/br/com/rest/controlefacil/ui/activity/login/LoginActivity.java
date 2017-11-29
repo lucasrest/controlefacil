@@ -1,23 +1,19 @@
 package br.com.rest.controlefacil.ui.activity.login;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.widget.Toast;
 
 import javax.inject.Inject;
 
-import br.com.rest.controlefacil.ControleFacilApplication;
 import br.com.rest.controlefacil.R;
-import br.com.rest.controlefacil.domain.daos.UserDAO;
-import br.com.rest.controlefacil.domain.models.User;
-import br.com.rest.controlefacil.ui.di.DaggerUIComponent;
-import br.com.rest.controlefacil.ui.di.UIModule;
+import br.com.rest.controlefacil.domain.dao.UserDAO;
+import br.com.rest.controlefacil.domain.model.User;
+import br.com.rest.controlefacil.ui.activity.BaseActivity;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity implements LoginContract.View {
+public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @BindView(R.id.edt_email)
     AppCompatEditText edtEmail;
@@ -25,22 +21,17 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     AppCompatEditText edtPassword;
     @Inject
     LoginContract.Presenter presenter;
-    // @Inject
+    @Inject
     UserDAO userDAO;
-    // @Inject
+    @Inject
     User user;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
-        DaggerUIComponent
-                .builder()
-                .appComponent(ControleFacilApplication.getAppComponent())
-                .uIModule(new UIModule(this))
-                .build().inject(this);
+        bindViews();
+        component(this).inject(this);
         presenter.setUserDAO(userDAO);
         presenter.verifyIfUserIsLogged();
     }
@@ -58,13 +49,14 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     @OnClick(R.id.tv_new_account)
     public void callNewAccount() {
         presenter.callNewAccount();
+
     }
 
     @OnClick(R.id.btn_login)
     public void login() {
         if (validadeForm()) {
             user.setEmail(edtEmail.getText().toString());
-            user.setPassword(edtEmail.getText().toString());
+            user.setPassword(edtPassword.getText().toString());
             presenter.login(user);
         } else {
             showToast(getString(R.string.toast_fields_not_filled_login));

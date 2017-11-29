@@ -1,8 +1,7 @@
 package br.com.rest.controlefacil.ui.activity.user;
 
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -10,17 +9,14 @@ import android.widget.Toast;
 
 import javax.inject.Inject;
 
-import br.com.rest.controlefacil.ControleFacilApplication;
 import br.com.rest.controlefacil.R;
-import br.com.rest.controlefacil.domain.daos.UserDAO;
-import br.com.rest.controlefacil.domain.models.User;
-import br.com.rest.controlefacil.ui.di.DaggerUIComponent;
-import br.com.rest.controlefacil.ui.di.UIModule;
+import br.com.rest.controlefacil.domain.dao.UserDAO;
+import br.com.rest.controlefacil.domain.model.User;
+import br.com.rest.controlefacil.ui.activity.BaseActivity;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class UserActivity extends AppCompatActivity implements UserContract.View {
+public class UserActivity extends BaseActivity implements UserContract.View {
 
     @BindView(R.id.til_email)
     TextInputLayout tilEmail;
@@ -34,22 +30,17 @@ public class UserActivity extends AppCompatActivity implements UserContract.View
     Toolbar toolbar;
     @Inject
     UserContract.Presenter presenter;
-    //@Inject
+    @Inject
     User user;
-   //@Inject
+    @Inject
     UserDAO userDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        ButterKnife.bind(this);
-        DaggerUIComponent
-                .builder()
-                .appComponent(ControleFacilApplication.getAppComponent())
-                .uIModule(new UIModule(this))
-                .build()
-                .inject(this);
+        bindViews();
+        component(this).inject(this);
         presenter.setUserDAO(userDAO);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.user_title);
@@ -58,10 +49,10 @@ public class UserActivity extends AppCompatActivity implements UserContract.View
 
     @OnClick(R.id.btn_register)
     public void register() {
-        if (validadeForm()){
-            user.setEmail( edtEmail.getText().toString() );
-            user.setPassword( edtPassword.getText().toString() );
-            presenter.register( user );
+        if (validadeForm()) {
+            user.setEmail(edtEmail.getText().toString());
+            user.setPassword(edtPassword.getText().toString());
+            presenter.register(user);
         }
     }
 
@@ -69,7 +60,7 @@ public class UserActivity extends AppCompatActivity implements UserContract.View
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                presenter.callLoginScreen();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -80,19 +71,19 @@ public class UserActivity extends AppCompatActivity implements UserContract.View
     @Override
     public boolean validadeForm() {
         boolean valid = true;
-        if (edtEmail.getText().toString().isEmpty()){
-            tilEmail.setErrorEnabled( true );
+        if (edtEmail.getText().toString().isEmpty()) {
+            tilEmail.setErrorEnabled(true);
             tilEmail.setError(getString(R.string.error_empty_email));
             valid = false;
-        }else {
-            tilEmail.setErrorEnabled( false );
+        } else {
+            tilEmail.setErrorEnabled(false);
         }
-        if (edtPassword.getText().toString().isEmpty()){
-            tilPassword.setErrorEnabled( true );
+        if (edtPassword.getText().toString().isEmpty()) {
+            tilPassword.setErrorEnabled(true);
             tilPassword.setError(getString(R.string.error_empty_password));
             valid = false;
-        }else {
-            tilPassword.setErrorEnabled( false );
+        } else {
+            tilPassword.setErrorEnabled(false);
         }
         return valid;
     }
@@ -106,5 +97,10 @@ public class UserActivity extends AppCompatActivity implements UserContract.View
     protected void onDestroy() {
         super.onDestroy();
         userDAO.close();
+    }
+
+    @Override
+    public void onBackPressed() {
+        presenter.callLoginScreen();
     }
 }

@@ -2,13 +2,12 @@ package br.com.rest.controlefacil;
 
 import android.app.Application;
 
-import br.com.rest.controlefacil.domain.di.DAOModule;
-import br.com.rest.controlefacil.domain.di.DaggerDomainComponent;
-import br.com.rest.controlefacil.domain.di.DomainComponent;
-import br.com.rest.controlefacil.domain.di.ModelModule;
-import br.com.rest.controlefacil.util.di.DaggerUtilComponent;
-import br.com.rest.controlefacil.util.di.UtilComponent;
-import br.com.rest.controlefacil.util.di.UtilModule;
+import br.com.rest.controlefacil.di.component.AppComponent;
+import br.com.rest.controlefacil.di.component.DaggerAppComponent;
+import br.com.rest.controlefacil.di.module.AppModule;
+import br.com.rest.controlefacil.di.module.domain.DAOModule;
+import br.com.rest.controlefacil.di.module.domain.ModelModule;
+import br.com.rest.controlefacil.di.module.util.UtilModule;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -19,8 +18,6 @@ import io.realm.RealmConfiguration;
 public class ControleFacilApplication extends Application {
 
     private static AppComponent appComponent;
-    private static UtilComponent utilComponent;
-    private static DomainComponent domainComponent;
 
     public static AppComponent getAppComponent() {
         return appComponent;
@@ -36,22 +33,12 @@ public class ControleFacilApplication extends Application {
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);
 
-        domainComponent = DaggerDomainComponent
-                .builder()
-                .modelModule(new ModelModule())
-                .dAOModule(new DAOModule())
-                .build();
-
-        utilComponent = DaggerUtilComponent
-                .builder()
-                .utilModule(new UtilModule())
-                .build();
-
         appComponent = DaggerAppComponent
                 .builder()
-                .domainComponent(domainComponent)
-                .utilComponent(utilComponent)
                 .appModule(new AppModule(this))
+                .dAOModule(new DAOModule())
+                .modelModule(new ModelModule())
+                .utilModule(new UtilModule())
                 .build();
     }
 

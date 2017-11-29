@@ -1,4 +1,4 @@
-package br.com.rest.controlefacil.domain.models;
+package br.com.rest.controlefacil.domain.model;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

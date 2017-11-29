@@ -1,11 +1,11 @@
-package br.com.rest.controlefacil;
+package br.com.rest.controlefacil.di.module;
 
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import br.com.rest.controlefacil.util.Preferences;
-import br.com.rest.controlefacil.util.di.scope.AppScope;
+import br.com.rest.controlefacil.di.scope.AppScope;
 import dagger.Module;
 import dagger.Provides;
 

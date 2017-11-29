@@ -1,6 +1,6 @@
-package br.com.rest.controlefacil.domain.di;
+package br.com.rest.controlefacil.di.module.domain;
 
-import br.com.rest.controlefacil.domain.daos.UserDAO;
+import br.com.rest.controlefacil.domain.dao.UserDAO;
 import dagger.Module;
 import dagger.Provides;
 

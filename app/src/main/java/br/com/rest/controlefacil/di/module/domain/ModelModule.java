@@ -1,6 +1,6 @@
-package br.com.rest.controlefacil.domain.di;
+package br.com.rest.controlefacil.di.module.domain;
 
-import br.com.rest.controlefacil.domain.models.User;
+import br.com.rest.controlefacil.domain.model.User;
 import dagger.Module;
 import dagger.Provides;
 

@@ -11,6 +11,8 @@ import javax.inject.Inject;
 
 import br.com.rest.controlefacil.ControleFacilApplication;
 
+import static br.com.rest.controlefacil.ControleFacilApplication.getAppComponent;
+
 
 /**
  * Created by LUCAS RODRIGUES on 26/11/2017.
@@ -28,7 +30,8 @@ public class Preferences {
     HashMap<String, String> data;
 
     public Preferences() {
-        ControleFacilApplication.getAppComponent().inject(this);
+        getAppComponent()
+                .inject(this);
     }
 
     public void save(String email) {

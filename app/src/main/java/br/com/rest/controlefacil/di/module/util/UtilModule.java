@@ -1,15 +1,12 @@
-package br.com.rest.controlefacil.util.di;
-
-import android.app.Application;
-import android.content.SharedPreferences;
+package br.com.rest.controlefacil.di.module.util;
 
 import java.util.HashMap;
 
-import javax.inject.Singleton;
-
+import br.com.rest.controlefacil.di.scope.AppScope;
 import br.com.rest.controlefacil.util.Preferences;
 import dagger.Module;
 import dagger.Provides;
+import io.realm.Realm;
 
 /**
  * Created by LUCAS RODRIGUES on 26/11/2017.
@@ -19,12 +16,17 @@ import dagger.Provides;
 public class UtilModule {
 
     @Provides
-    HashMap<String, String> providesHashMap(){
+    HashMap<String, String> providesHashMap() {
         return new HashMap<>();
     }
 
     @Provides
-    Preferences providesPreferences(){
+    Preferences providesPreferences() {
         return new Preferences();
+    }
+
+    @Provides
+    Realm providesRealm(){
+        return Realm.getDefaultInstance();
     }
 }

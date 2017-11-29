@@ -1,4 +1,4 @@
-package br.com.rest.controlefacil.util.di.scope;
+package br.com.rest.controlefacil.di.scope;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -12,5 +12,5 @@ import javax.inject.Scope;
 @Documented
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UtilScope {
+public @interface AppScope {
 }
