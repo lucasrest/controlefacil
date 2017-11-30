@@ -23,7 +23,10 @@
         <activity android:name=".ui.activity.init.InitActivity" />
         <activity android:name=".ui.activity.fotgot_password.ForgotPasswordActivity" />
         <activity android:name=".ui.activity.privacy_policies.PrivacyPoliciesActivity" />
-        <activity android:name=".ui.activity.user.UserActivity"></activity>
+        <activity android:name=".ui.activity.user.UserActivity" />
+        <activity
+            android:name=".ui.activity.category.CategoryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"></activity>
     </application>
 
 </manifest>
