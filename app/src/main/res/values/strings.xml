@@ -27,4 +27,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab_recipes">Receitas</string>
     <string name="tab_expenses">Despesas</string>
+    <string name="title_expenses">Despesas</string>
+    <string name="title_recipes">Receitas</string>
 </resources>

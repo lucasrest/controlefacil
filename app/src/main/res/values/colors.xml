@@ -17,6 +17,7 @@
     <color name="colorBlack">#000000</color>
     <color name="hintDefault">#a39494</color>
     <color name="colorTextEdtDefault">#000000</color>
+    <color name="colorIndicatorTab">#ffffff</color>
 
     <!-- Recipes Color Theme -->
     <color name="recipesColorPrimary">#4caf50</color>

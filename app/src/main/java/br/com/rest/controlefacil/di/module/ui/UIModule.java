@@ -1,6 +1,8 @@
 package br.com.rest.controlefacil.di.module.ui;
 
 import br.com.rest.controlefacil.ui.activity.BaseActivity;
+import br.com.rest.controlefacil.ui.activity.category.CategoryContract;
+import br.com.rest.controlefacil.ui.activity.category.CategoryPresenter;
 import br.com.rest.controlefacil.ui.activity.fotgot_password.ForgotPasswordContract;
 import br.com.rest.controlefacil.ui.activity.fotgot_password.ForgotPasswordPresenter;
 import br.com.rest.controlefacil.ui.activity.login.LoginContract;
@@ -17,6 +19,7 @@ import dagger.Provides;
 @Module
 public class UIModule {
 
+    private static CategoryContract.View categoryView;
     private static ForgotPasswordContract.View forgotPasswordView;
     private static LoginContract.View loginView;
     private static UserContract.View userView;
@@ -31,6 +34,8 @@ public class UIModule {
             this.userView = (UserContract.View) baseActivity;
         else if (baseActivity instanceof ForgotPasswordContract.View)
             this.forgotPasswordView = (ForgotPasswordContract.View) baseActivity;
+        else if (baseActivity instanceof CategoryContract.View)
+            this.categoryView = (CategoryContract.View) baseActivity;
     }
 
     @Provides
@@ -46,5 +51,10 @@ public class UIModule {
     @Provides
     UserContract.Presenter providesUserPresenter() {
         return new UserPresenter(userView);
+    }
+
+    @Provides
+    CategoryContract.Presenter providesCategoryPresenter(){
+        return new CategoryPresenter( categoryView );
     }
 }

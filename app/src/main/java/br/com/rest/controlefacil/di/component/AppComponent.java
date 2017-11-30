@@ -3,14 +3,20 @@ package br.com.rest.controlefacil.di.component;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.HashMap;
+
+import javax.inject.Named;
 
 import br.com.rest.controlefacil.di.module.AppModule;
 import br.com.rest.controlefacil.di.module.domain.DAOModule;
+import br.com.rest.controlefacil.di.module.domain.EventModule;
 import br.com.rest.controlefacil.di.module.domain.ModelModule;
 import br.com.rest.controlefacil.di.module.util.UtilModule;
 import br.com.rest.controlefacil.di.scope.AppScope;
 import br.com.rest.controlefacil.domain.dao.UserDAO;
+import br.com.rest.controlefacil.domain.event.CategoryChangeEvent;
 import br.com.rest.controlefacil.domain.model.User;
 import br.com.rest.controlefacil.util.Preferences;
 import dagger.Component;
@@ -25,6 +31,7 @@ import io.realm.Realm;
         modules = {
                 AppModule.class,
                 DAOModule.class,
+                EventModule.class,
                 ModelModule.class,
                 UtilModule.class
         }
@@ -46,6 +53,14 @@ public interface AppComponent {
     Preferences preferences();
 
     Realm realm();
+
+    @Named("ExpensesCategoryChangeEvent")
+    CategoryChangeEvent expensesCategoryChangeEvent();
+
+    @Named("RecipesCategoryChangeEvent")
+    CategoryChangeEvent recipesCategoryChangeEvent();
+
+    EventBus providesEventBus();
 
     void inject(Preferences preferences);
 

@@ -12,12 +12,13 @@ import android.widget.TextView;
 
 import br.com.rest.controlefacil.R;
 import br.com.rest.controlefacil.domain.enums.Category;
+import br.com.rest.controlefacil.ui.fragment.BaseFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static br.com.rest.controlefacil.R.style.ExpensesTheme;
 
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends BaseFragment {
 
     private static final String CATEGORY = "category";
     @BindView(R.id.txt)
@@ -27,9 +28,7 @@ public class CategoryFragment extends Fragment {
     public CategoryFragment() {
     }
 
-    public static CategoryFragment newInstance(Category category) {
-        CategoryFragment fragment = new CategoryFragment();
-        Bundle args = new Bundle();
+    public static CategoryFragment newInstance(Category category, CategoryFragment fragment, Bundle args ) {
         args.putParcelable(CATEGORY, category);
         fragment.setArguments(args);
         return fragment;
@@ -46,28 +45,10 @@ public class CategoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_category, container, false);
-//        if (Category.EXPENSES == category){
-            getActivity().setTheme(R.style.ExpensesTheme);
-  /*      }else {
-            getActivity().setTheme(R.style.RecipesTheme);
-        }*/
-
-
-        ButterKnife.bind(this, view);
-        textView.setText(category.toString());
+        super.onViewCreated(view, savedInstanceState);
         return view;
     }
 
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
 }
