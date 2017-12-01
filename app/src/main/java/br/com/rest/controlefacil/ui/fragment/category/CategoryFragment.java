@@ -21,8 +21,6 @@ import static br.com.rest.controlefacil.R.style.ExpensesTheme;
 public class CategoryFragment extends BaseFragment {
 
     private static final String CATEGORY = "category";
-    @BindView(R.id.txt)
-    TextView textView;
     private Category category;
 
     public CategoryFragment() {

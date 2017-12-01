@@ -1,5 +1,9 @@
 package br.com.rest.controlefacil.ui.activity.category;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,7 +11,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -15,15 +21,20 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.rest.controlefacil.R;
 import br.com.rest.controlefacil.domain.event.CategoryChangeEvent;
 import br.com.rest.controlefacil.ui.activity.BaseActivity;
 import br.com.rest.controlefacil.ui.fragment.category.TabFragment;
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CategoryActivity extends BaseActivity implements CategoryContract.View {
 
+    final Context context = this;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.fab_add)
@@ -32,7 +43,9 @@ public class CategoryActivity extends BaseActivity implements CategoryContract.V
     EventBus eventBus;
     @Inject
     CategoryContract.Presenter presenter;
-
+    @Inject
+    @Named("DialogCategoryActivity")
+    AlertDialog.Builder builder;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
@@ -91,5 +104,20 @@ public class CategoryActivity extends BaseActivity implements CategoryContract.V
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @OnClick(R.id.fab_add)
+    public void cli() {
+
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.dialog_category, null);
+        CircleImageView ivBackground = ButterKnife.findById(view, R.id.iv_background);
+        ivBackground.setImageResource(R.color.expensesColorAccent);
+        builder.setView(view);
+        builder.setPositiveButton("Salvar",null)
+                .setNegativeButton( "Cancelar", null)
+                .setTitle("Nova Categoria");
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

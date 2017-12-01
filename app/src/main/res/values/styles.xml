@@ -51,4 +51,9 @@
         <item name="android:textColorHint">@color/colorHintEdtDefault</item>
         <item name="android:background">@drawable/fundo_edt_login</item>
     </style>
+
+    <style name="DialogCategory" parent="AlertDialog.AppCompat.Light">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 </resources>

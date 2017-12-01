@@ -1,5 +1,14 @@
 package br.com.rest.controlefacil.di.module.ui;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
+
+import javax.inject.Named;
+
+import br.com.rest.controlefacil.R;
 import br.com.rest.controlefacil.ui.activity.BaseActivity;
 import br.com.rest.controlefacil.ui.activity.category.CategoryContract;
 import br.com.rest.controlefacil.ui.activity.category.CategoryPresenter;
@@ -54,7 +63,13 @@ public class UIModule {
     }
 
     @Provides
-    CategoryContract.Presenter providesCategoryPresenter(){
-        return new CategoryPresenter( categoryView );
+    CategoryContract.Presenter providesCategoryPresenter() {
+        return new CategoryPresenter(categoryView);
+    }
+
+    @Provides
+    @Named("DialogCategoryActivity")
+    AlertDialog.Builder providesAlert() {
+        return new AlertDialog.Builder(new ContextThemeWrapper((Context) categoryView, R.style.DialogCategory));
     }
 }

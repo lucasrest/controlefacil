@@ -1,6 +1,7 @@
 package br.com.rest.controlefacil.di.component;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import org.greenrobot.eventbus.EventBus;
@@ -39,6 +40,8 @@ import io.realm.Realm;
 public interface AppComponent {
 
     Application application();
+
+    Context context();
 
     SharedPreferences sharedPreferences();
 
