@@ -28,12 +28,12 @@ public class BaseFragment extends Fragment {
         ButterKnife.bind(this, view);
     }
 
-    protected UIComponent component(){
+    protected UIComponent component(BaseFragment baseFragment){
         return DaggerUIComponent
                 .builder()
                 .appComponent(ControleFacilApplication.getAppComponent())
                 .uIModule( new UIModule())
-                .fragmentModule( new FragmentModule())
+                .fragmentModule( new FragmentModule(baseFragment))
                 .build();
     }
 }

@@ -13,6 +13,7 @@ import br.com.rest.controlefacil.di.module.domain.ModelModule;
 import br.com.rest.controlefacil.di.module.util.UtilModule;
 import br.com.rest.controlefacil.domain.model.Category;
 import br.com.rest.controlefacil.domain.model.CategoryIcons;
+import br.com.rest.controlefacil.domain.model.User;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -38,9 +39,8 @@ public class ControleFacilApplication extends Application {
                     @Override
                     public void execute(Realm realm) {
                         List<Category> categories = CategoryIcons.getDefaultCategories();
-                        for (Category category: categories){
-                            realm.copyToRealm(category);
-                        }
+                        realm.copyToRealm(categories);
+                        realm.copyToRealm(new User(1L, "lucas@hotmail.com", "123", "Lucas", ""));
                     }
                 })
                 .deleteRealmIfMigrationNeeded()

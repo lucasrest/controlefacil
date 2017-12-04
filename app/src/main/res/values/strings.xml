@@ -30,4 +30,5 @@
     <string name="title_expenses">Despesas</string>
     <string name="title_recipes">Receitas</string>
     <string name="edt_category_name_hint">Nome</string>
+    <string name="toast_error_delete_last_category">Não é possivel excluir, é necessário pelo menos uma</string>
 </resources>

@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import br.com.rest.controlefacil.ControleFacilApplication;
 import br.com.rest.controlefacil.R;
 import br.com.rest.controlefacil.domain.model.Category;
+import br.com.rest.controlefacil.ui.activity.category.CategoryActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -27,6 +28,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Inject
     List<Category> categories;
+    private CategoryActivity activity;
 
     public CategoryAdapter() {
         getAppComponent().inject(this);
@@ -34,6 +36,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    public void setActivity(CategoryActivity activity) {
+        this.activity = activity;
     }
 
     @Override
@@ -45,7 +51,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         try {
-            Category category = categories.get(position);
+            final Category category = categories.get(position);
             Integer color;
             if (category.getCategoryType() == 1) {
                 color = R.color.expensesColorSecondaryDark;
@@ -53,9 +59,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 color = R.color.recipesColorSecondaryDark;
             }
             holder.ivBackground.setImageResource(color);
-            if (category.getIcon() > 0)
-                holder.ivIcon.setBackgroundResource(category.getIcon());
+            holder.ivIcon.setBackgroundResource(category.getIcon());
             holder.tvName.setText(category.getName());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    activity.callDialogCategory(category);
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

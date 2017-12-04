@@ -13,7 +13,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -24,8 +23,6 @@ import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -33,6 +30,7 @@ import br.com.rest.controlefacil.R;
 import br.com.rest.controlefacil.domain.dao.CategoryDAO;
 import br.com.rest.controlefacil.domain.enums.Category;
 import br.com.rest.controlefacil.domain.event.CategoryChangeEvent;
+import br.com.rest.controlefacil.domain.event.ChangeInCategoryListEvent;
 import br.com.rest.controlefacil.domain.event.SelectedIconEvent;
 import br.com.rest.controlefacil.domain.model.CategoryIcons;
 import br.com.rest.controlefacil.ui.activity.BaseActivity;
@@ -149,10 +147,10 @@ public class CategoryActivity extends BaseActivity implements CategoryContract.V
 
     @OnClick(R.id.fab_add)
     public void newCategory() {
-        callDialogCategory();
+        callDialogCategory(null);
     }
 
-    private void callDialogCategory() {
+    public void callDialogCategory(final br.com.rest.controlefacil.domain.model.Category categoryTemp) {
         AlertDialog.Builder builder;
         int color;
         if (currentCategory == Category.EXPENSES) {
@@ -160,7 +158,7 @@ public class CategoryActivity extends BaseActivity implements CategoryContract.V
             color = R.color.expensesColorSecondaryDark;
         } else {
             builder = recipesBuilder;
-            color = R.color.recipesColorSecondaryDark   ;
+            color = R.color.recipesColorSecondaryDark;
         }
 
         View view = getLayoutInflater().inflate(R.layout.dialog_category, null);
@@ -169,8 +167,14 @@ public class CategoryActivity extends BaseActivity implements CategoryContract.V
         final AppCompatEditText edtName = ButterKnife.findById(view, R.id.edt_name);
         ivBackground.setImageResource(color);
         currentIcon = CategoryIcons.getDefaultCategoryIcon();
-        ivIcon.setBackgroundResource(currentIcon);
 
+        String title = "Nova Categoria";
+        if (categoryTemp != null) {
+            title = "Alterar Categoria";
+            currentIcon = categoryTemp.getIcon();
+            edtName.setText(categoryTemp.getName());
+        }
+        ivIcon.setBackgroundResource(currentIcon);
         ivBackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,29 +189,52 @@ public class CategoryActivity extends BaseActivity implements CategoryContract.V
         });
 
         builder.setView(view)
-        .setPositiveButton("Salvar", null)
+                .setPositiveButton("Salvar", null)
                 .setNegativeButton("Cancelar", null)
-                .setTitle("Nova Categoria");
+                .setTitle(title);
+        if (categoryTemp != null) {
+            builder.setNeutralButton("Excluir", null);
+        }
         final AlertDialog alertDialog = builder.create();
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                Button b = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                b.setOnClickListener(new View.OnClickListener() {
+                Button btnSave = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                btnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (edtName.getText().toString().isEmpty()) {
                             showToast("Necessário informar uma descrição para categoria");
                         } else {
+                            category.setId(0L);
+                            if (categoryTemp != null)
+                                category.setId(categoryTemp.getId());
                             category.setName(edtName.getText().toString());
                             category.setIcon(currentIcon);
                             category.setCategoryType(Category.getCategoryType(currentCategory));
                             presenter.save(category);
+                            eventBus.post(new ChangeInCategoryListEvent(ChangeInCategoryListEvent.ADD));
                             alertDialog.dismiss();
                         }
                     }
                 });
+                if (categoryTemp != null) {
+                    Button btnDelete = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+                    btnDelete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if ( presenter.delete(categoryTemp) ) {
+                                eventBus.post(new ChangeInCategoryListEvent(ChangeInCategoryListEvent.REMOVE));
+                            }else {
+                                showToast(getString(R.string.toast_error_delete_last_category) + " " + (categoryTemp.getCategoryType() == 1 ? "Despesa" : "Receita"));
+                            }
+                            alertDialog.dismiss();
+                        }
+                    });
+                }
+
+
             }
         });
 

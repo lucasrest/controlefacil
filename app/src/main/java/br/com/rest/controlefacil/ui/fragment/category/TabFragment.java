@@ -55,7 +55,7 @@ public class TabFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab, container, false);
         super.onViewCreated(view, savedInstanceState);
-        component().inject(this);
+        component(this).inject(this);
         viewPager.setAdapter(new TabAdapter(getFragmentManager()));
         tabLayout.post(new Runnable() {
             @Override

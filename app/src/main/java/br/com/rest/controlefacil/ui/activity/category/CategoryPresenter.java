@@ -42,6 +42,11 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     }
 
     @Override
+    public boolean delete(br.com.rest.controlefacil.domain.model.Category category) {
+        return categoryDAO.delete(category);
+    }
+
+    @Override
     public void save(br.com.rest.controlefacil.domain.model.Category category) {
         categoryDAO.save(category);
     }

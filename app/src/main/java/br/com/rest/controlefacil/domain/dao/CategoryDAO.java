@@ -36,8 +36,12 @@ public class CategoryDAO {
 
     public void save(Category category){
         realm.beginTransaction();
-        category.setId(autoIncrement());
-        realm.copyToRealm(category);
+        if (category.getId() == 0){
+            category.setId(autoIncrement());
+            realm.copyToRealm(category);
+        }else {
+            realm.copyToRealmOrUpdate(category);
+        }
         realm.commitTransaction();
     }
 
@@ -57,4 +61,20 @@ public class CategoryDAO {
         }
     }
 
+    public boolean checkIfThereIsMoreThanOneCategory(int categoryType){
+        return realm.where(Category.class)
+                .equalTo("categoryType", categoryType)
+                .count()
+                > 1;
+    }
+
+    public boolean delete(Category category){
+        if (!checkIfThereIsMoreThanOneCategory(category.getCategoryType())){
+            return false;
+        }
+        realm.beginTransaction();
+        category.deleteFromRealm();
+        realm.commitTransaction();
+        return true;
+    }
 }

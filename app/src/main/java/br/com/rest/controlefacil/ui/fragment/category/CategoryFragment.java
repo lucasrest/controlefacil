@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +19,13 @@ import javax.inject.Inject;
 import br.com.rest.controlefacil.R;
 import br.com.rest.controlefacil.domain.dao.CategoryDAO;
 import br.com.rest.controlefacil.domain.enums.Category;
+import br.com.rest.controlefacil.domain.event.ChangeInCategoryListEvent;
+import br.com.rest.controlefacil.ui.activity.category.CategoryActivity;
 import br.com.rest.controlefacil.ui.adapter.CategoryAdapter;
 import br.com.rest.controlefacil.ui.fragment.BaseFragment;
 import butterknife.BindView;
 
-public class CategoryFragment extends BaseFragment {
+public class CategoryFragment extends BaseFragment implements CategoryContract.View {
     private static final String CATEGORY = "category";
     @BindView(R.id.rv_categories)
     RecyclerView recyclerView;
@@ -30,6 +35,10 @@ public class CategoryFragment extends BaseFragment {
     CategoryDAO categoryDAO;
     @Inject
     List<br.com.rest.controlefacil.domain.model.Category> categories;
+    @Inject
+    CategoryContract.Presenter presenter;
+    @Inject
+    EventBus eventBus;
 
     private Category category;
 
@@ -55,8 +64,10 @@ public class CategoryFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         super.onViewCreated(view, savedInstanceState);
-        component().inject(this);
-        categories = categoryDAO.findAll(category);
+        component(this).inject(this);
+        presenter.setCategoryDAO(categoryDAO);
+        categories = presenter.findAll(category);
+        categoryAdapter.setActivity((CategoryActivity) getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -69,5 +80,23 @@ public class CategoryFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         categoryDAO.close();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        eventBus.register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        eventBus.unregister(this);
+    }
+
+    @Subscribe
+    public void onEvent(ChangeInCategoryListEvent changeInCategoryListEvent){
+        categories = presenter.findAll(category);
+        categoryAdapter.notifyDataSetChanged();
     }
 }

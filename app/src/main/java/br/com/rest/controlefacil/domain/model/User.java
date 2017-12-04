@@ -20,6 +20,14 @@ public class User extends RealmObject {
         id = 0L;
     }
 
+    public User(Long id, String email, String password, String nome, String photoUrl) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.nome = nome;
+        this.photoUrl = photoUrl;
+    }
+
     public long getId() {
         return id;
     }

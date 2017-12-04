@@ -5,11 +5,10 @@ import android.os.Bundle;
 import javax.inject.Named;
 
 import br.com.rest.controlefacil.domain.enums.Category;
-import br.com.rest.controlefacil.ui.adapter.CategoryAdapter;
 import br.com.rest.controlefacil.ui.fragment.BaseFragment;
-import br.com.rest.controlefacil.ui.activity.category.CategoryContract;
+import br.com.rest.controlefacil.ui.fragment.category.CategoryContract;
 import br.com.rest.controlefacil.ui.fragment.category.CategoryFragment;
-import br.com.rest.controlefacil.ui.activity.category.CategoryPresenter;
+import br.com.rest.controlefacil.ui.fragment.category.CategoryPresenter;
 import dagger.Module;
 import dagger.Provides;
 
@@ -19,6 +18,16 @@ import dagger.Provides;
 
 @Module
 public class FragmentModule {
+
+    private CategoryContract.View categoryView;
+
+    public FragmentModule() {
+    }
+
+    public FragmentModule(BaseFragment fragment) {
+        if (fragment instanceof CategoryContract.View)
+            this.categoryView = (CategoryContract.View) fragment;
+    }
 
     @Provides
     CategoryFragment providesCategoryFragment() {
@@ -40,6 +49,11 @@ public class FragmentModule {
     @Named("RecipesFragment")
     CategoryFragment providesRecipesFragment(CategoryFragment categoryFragment, Bundle bundle) {
         return CategoryFragment.newInstance(Category.RECIPES, categoryFragment, bundle);
+    }
+
+    @Provides
+    CategoryContract.Presenter providesCategoryPresenter(){
+        return new CategoryPresenter(categoryView);
     }
 
 }

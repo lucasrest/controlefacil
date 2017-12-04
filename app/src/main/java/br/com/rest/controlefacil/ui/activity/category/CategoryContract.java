@@ -18,6 +18,7 @@ public interface CategoryContract {
 
     interface Presenter {
         void onCategoryChangeEvent(CategoryChangeEvent categoryChangeEvent);
+        boolean delete(Category category);
         void save(Category category);
         void setCategoryDAO(CategoryDAO categoryDAO);
     }
