@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.view.ContextThemeWrapper;
-import android.view.LayoutInflater;
 
 import javax.inject.Named;
 
@@ -18,6 +17,8 @@ import br.com.rest.controlefacil.ui.activity.login.LoginContract;
 import br.com.rest.controlefacil.ui.activity.login.LoginPresenter;
 import br.com.rest.controlefacil.ui.activity.user.UserContract;
 import br.com.rest.controlefacil.ui.activity.user.UserPresenter;
+import br.com.rest.controlefacil.ui.adapter.CategoryAdapter;
+import br.com.rest.controlefacil.ui.adapter.CategoryIconsAdapter;
 import dagger.Module;
 import dagger.Provides;
 
@@ -68,8 +69,33 @@ public class UIModule {
     }
 
     @Provides
-    @Named("DialogCategoryActivity")
-    AlertDialog.Builder providesAlert() {
-        return new AlertDialog.Builder(new ContextThemeWrapper((Context) categoryView, R.style.DialogCategory));
+    @Named("DialogExpensesCategoryActivity")
+    AlertDialog.Builder providesExpensesAlert() {
+        return new AlertDialog.Builder(new ContextThemeWrapper((Context) categoryView, R.style.DialogExpensesCategory));
+    }
+
+    @Provides
+    @Named("DialogRecipesCategoryActivity")
+    AlertDialog.Builder providesRecipesAlert() {
+        return new AlertDialog.Builder(new ContextThemeWrapper((Context) categoryView, R.style.DialogRecipesCategory));
+    }
+
+    @Provides
+    @Named("DialogListIconsCategory")
+    AlertDialog.Builder providesDialogListIcons() {
+        Activity activity = (Activity) categoryView;
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(activity, R.style.DialogDefault));
+        builder.setTitle("Escolha um ícone");
+        return builder;
+    }
+
+    @Provides
+    CategoryIconsAdapter providesCategoryIconsAdapter() {
+        return new CategoryIconsAdapter();
+    }
+
+    @Provides
+    CategoryAdapter providesCategoryAdapater() {
+        return new CategoryAdapter();
     }
 }

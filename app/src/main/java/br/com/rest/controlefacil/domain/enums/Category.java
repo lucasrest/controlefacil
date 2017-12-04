@@ -32,4 +32,26 @@ public enum Category implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.ordinal());
     }
+
+    public static int getCategoryType(Category category) {
+        switch (category) {
+            case EXPENSES:
+                return 1;
+            case RECIPES:
+                return 2;
+            default://EXPENSES
+                return 1;
+        }
+    }
+
+    public static Category setCategoryType(int categoryType){
+        switch (categoryType) {
+            case 1:
+                return EXPENSES;
+            case 2:
+                return RECIPES;
+            default://EXPENSES
+                return EXPENSES;
+        }
+    }
 }

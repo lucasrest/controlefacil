@@ -5,6 +5,7 @@ import android.os.Bundle;
 import javax.inject.Named;
 
 import br.com.rest.controlefacil.domain.enums.Category;
+import br.com.rest.controlefacil.ui.adapter.CategoryAdapter;
 import br.com.rest.controlefacil.ui.fragment.BaseFragment;
 import br.com.rest.controlefacil.ui.activity.category.CategoryContract;
 import br.com.rest.controlefacil.ui.fragment.category.CategoryFragment;

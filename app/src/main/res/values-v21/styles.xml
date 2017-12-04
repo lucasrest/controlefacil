@@ -5,4 +5,12 @@
         <item name="android:backgroundTint">@color/colorBlack</item>
         <item name="android:textColor">@color/colorTextEdtDefault</item>
     </style>
+
+    <style name="DialogExpensesCategory" parent="DialogDefault">
+        <item name="android:colorAccent">@color/expensesColorAccent</item>
+    </style>
+
+    <style name="DialogRecipesCategory" parent="DialogDefault">
+        <item name="android:colorAccent">@color/recipesColorAccent</item>
+    </style>
 </resources>

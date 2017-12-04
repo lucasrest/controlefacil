@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_marginTop="16dp"
+    android:layout_marginTop="32dp"
     android:layout_marginLeft="16dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,18 +8,17 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_background"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_margin="8dp"
-        android:src="@color/colorAccent"
         android:layout_alignParentLeft="true"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="8dp"
-        android:src="@drawable/ic_plus"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="16dp"
+        android:backgroundTint="@android:color/white"
         android:layout_alignParentLeft="true"/>
 
     <android.support.v7.widget.AppCompatEditText
@@ -29,7 +28,10 @@
         android:layout_alignParentRight="true"
         android:layout_toRightOf="@id/iv_background"
         android:hint="@string/edt_category_name_hint"
-        android:layout_margin="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
         style="@style/EdtDefaultTheme"
         />
 

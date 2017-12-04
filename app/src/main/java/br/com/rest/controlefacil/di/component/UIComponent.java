@@ -9,6 +9,7 @@ import br.com.rest.controlefacil.ui.activity.login.LoginActivity;
 import br.com.rest.controlefacil.ui.activity.login.LoginPresenter;
 import br.com.rest.controlefacil.ui.activity.user.UserActivity;
 import br.com.rest.controlefacil.ui.activity.user.UserPresenter;
+import br.com.rest.controlefacil.ui.fragment.category.CategoryFragment;
 import br.com.rest.controlefacil.ui.fragment.category.TabFragment;
 import dagger.Component;
 
@@ -27,6 +28,8 @@ public interface UIComponent {
 
     void inject(CategoryActivity activity);
 
+    void inject(CategoryFragment categoryFragment);
+
     void inject(ForgotPasswordActivity activity);
 
     void inject(LoginActivity activity);
@@ -38,4 +41,5 @@ public interface UIComponent {
     void inject(UserPresenter presenter);
 
     void inject(TabFragment tabFragment);
+
 }
