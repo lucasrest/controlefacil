@@ -52,6 +52,17 @@
         <item name="android:background">@drawable/fundo_edt_login</item>
     </style>
 
+    <style name="EdtRelease" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/colorTitle</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+    <!-- Any changes remember to the version 21 -->
+    <style name="ChkRealese" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
     <style name="DialogDefault" parent="AlertDialog.AppCompat.Light">
         <item name="android:background">@android:color/white</item>
         <item name="android:textColor">@android:color/black</item>

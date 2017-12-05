@@ -13,4 +13,9 @@
     <style name="DialogRecipesCategory" parent="DialogDefault">
         <item name="android:colorAccent">@color/recipesColorAccent</item>
     </style>
+
+    <style name="ChkRealese" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:buttonTint">@color/colorBlack</item>
+    </style>
 </resources>

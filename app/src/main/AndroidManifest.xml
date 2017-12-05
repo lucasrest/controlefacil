@@ -2,9 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="br.com.rest.controlefacil">
-    <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW"
+
+    <uses-permission
+        android:name="android.permission.INTERNAL_SYSTEM_WINDOW"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:name=".ControleFacilApplication"
         android:allowBackup="true"
@@ -29,7 +32,8 @@
         <activity android:name=".ui.activity.user.UserActivity" />
         <activity
             android:name=".ui.activity.category.CategoryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"></activity>
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".ui.activity.release.ReleaseActivity"></activity>
     </application>
 
 </manifest>

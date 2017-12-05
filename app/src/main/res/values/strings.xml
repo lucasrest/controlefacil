@@ -31,4 +31,12 @@
     <string name="title_recipes">Receitas</string>
     <string name="edt_category_name_hint">Nome</string>
     <string name="toast_error_delete_last_category">Não é possivel excluir, é necessário pelo menos uma</string>
+    <string name="edt_maturity_hint">Vencimento</string>
+    <string name="edt_value_hint">Insira o valor</string>
+    <string name="edt_description_hint">Descrição</string>
+    <string name="chk_payment_hint">Pago</string>
+    <string name="chk_fixed_recipe_text">Receita Fixa</string>
+    <string name="chk_repeat_text">Repetir</string>
+    <string name="edt_numbe_of_times_hint">Quantidade de X</string>
+    <string name="edt_period_hint">Mensal</string>
 </resources>

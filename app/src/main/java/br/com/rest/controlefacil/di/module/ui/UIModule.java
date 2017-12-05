@@ -15,6 +15,8 @@ import br.com.rest.controlefacil.ui.activity.fotgot_password.ForgotPasswordContr
 import br.com.rest.controlefacil.ui.activity.fotgot_password.ForgotPasswordPresenter;
 import br.com.rest.controlefacil.ui.activity.login.LoginContract;
 import br.com.rest.controlefacil.ui.activity.login.LoginPresenter;
+import br.com.rest.controlefacil.ui.activity.release.ReleaseContract;
+import br.com.rest.controlefacil.ui.activity.release.ReleasePresenter;
 import br.com.rest.controlefacil.ui.activity.user.UserContract;
 import br.com.rest.controlefacil.ui.activity.user.UserPresenter;
 import br.com.rest.controlefacil.ui.adapter.CategoryAdapter;
@@ -29,10 +31,11 @@ import dagger.Provides;
 @Module
 public class UIModule {
 
-    private static CategoryContract.View categoryView;
-    private static ForgotPasswordContract.View forgotPasswordView;
-    private static LoginContract.View loginView;
-    private static UserContract.View userView;
+    private CategoryContract.View categoryView;
+    private ForgotPasswordContract.View forgotPasswordView;
+    private LoginContract.View loginView;
+    private UserContract.View userView;
+    private ReleaseContract.View releaseView;
 
     public UIModule() {
     }
@@ -46,6 +49,8 @@ public class UIModule {
             this.forgotPasswordView = (ForgotPasswordContract.View) baseActivity;
         else if (baseActivity instanceof CategoryContract.View)
             this.categoryView = (CategoryContract.View) baseActivity;
+        else if (baseActivity instanceof ReleaseContract.View)
+            this.releaseView = (ReleaseContract.View) baseActivity;
     }
 
     @Provides
@@ -97,5 +102,10 @@ public class UIModule {
     @Provides
     CategoryAdapter providesCategoryAdapater() {
         return new CategoryAdapter();
+    }
+
+    @Provides
+    ReleaseContract.Presenter providesReleasePresenter() {
+        return new ReleasePresenter(releaseView);
     }
 }
