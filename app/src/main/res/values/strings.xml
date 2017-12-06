@@ -22,8 +22,6 @@
     <string name="toast_exists_email">Já existe esse e-mail cadastrado, tente outro!</string>
     <string name="toast_invalid_user_or_password">Usuário ou Senha inválidos</string>
     <string name="toast_fields_not_filled_login">Necessário informar o campo de e-mail e senha para prosseguir!</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab_recipes">Receitas</string>
     <string name="tab_expenses">Despesas</string>
