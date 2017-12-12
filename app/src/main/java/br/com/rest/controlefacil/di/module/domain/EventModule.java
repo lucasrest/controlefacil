@@ -6,6 +6,7 @@ import javax.inject.Named;
 
 import br.com.rest.controlefacil.domain.enums.Category;
 import br.com.rest.controlefacil.domain.event.CategoryChangeEvent;
+import br.com.rest.controlefacil.domain.event.CategorySelectedEvent;
 import br.com.rest.controlefacil.domain.event.SelectedIconEvent;
 import dagger.Module;
 import dagger.Provides;
@@ -37,6 +38,11 @@ public class EventModule {
     @Provides
     SelectedIconEvent providesSelectedIconsEvent(){
         return new SelectedIconEvent();
+    }
+
+    @Provides
+    CategorySelectedEvent providesCategorySelectedEvent(){
+        return new CategorySelectedEvent();
     }
 
 }

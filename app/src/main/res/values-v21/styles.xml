@@ -16,6 +16,5 @@
 
     <style name="ChkRealese" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:textColor">@color/colorBlack</item>
-        <item name="android:buttonTint">@color/colorBlack</item>
     </style>
 </resources>

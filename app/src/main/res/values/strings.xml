@@ -37,4 +37,7 @@
     <string name="chk_repeat_text">Repetir</string>
     <string name="edt_numbe_of_times_hint">Quantidade de X</string>
     <string name="edt_period_hint">Mensal</string>
+    <string name="dialog_period_title">Escolha o periodo</string>
+    <string name="dialog_list_icons_category_title">Escolha um ícone</string>
+    <string name="search_category_hint">Procure a categoria...</string>
 </resources>

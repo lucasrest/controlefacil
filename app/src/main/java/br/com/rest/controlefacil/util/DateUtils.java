@@ -1,6 +1,7 @@
 package br.com.rest.controlefacil.util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -11,7 +12,7 @@ import java.util.Locale;
 
 public class DateUtils {
 
-    private static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("pt", "br"));
+    private static DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG, new Locale("pt", "br"));
 
     public static String format(){
         return format(getInstance());
@@ -29,6 +30,15 @@ public class DateUtils {
 
     public static String format(Calendar calendar) {
         return format(calendar.getTime());
+    }
+
+    public static Date format(String date){
+        try {
+            return dateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return getInstance().getTime();
     }
 
     public static Calendar getInstance() {

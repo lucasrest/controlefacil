@@ -7,6 +7,7 @@ import br.com.rest.controlefacil.ui.activity.category.CategoryActivity;
 import br.com.rest.controlefacil.ui.activity.fotgot_password.ForgotPasswordActivity;
 import br.com.rest.controlefacil.ui.activity.login.LoginActivity;
 import br.com.rest.controlefacil.ui.activity.login.LoginPresenter;
+import br.com.rest.controlefacil.ui.activity.release.ReleaseActivity;
 import br.com.rest.controlefacil.ui.activity.user.UserActivity;
 import br.com.rest.controlefacil.ui.activity.user.UserPresenter;
 import br.com.rest.controlefacil.ui.fragment.category.CategoryFragment;
@@ -33,6 +34,8 @@ public interface UIComponent {
     void inject(ForgotPasswordActivity activity);
 
     void inject(LoginActivity activity);
+
+    void inject(ReleaseActivity activity);
 
     void inject(UserActivity activity);
 

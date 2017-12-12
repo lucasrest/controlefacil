@@ -17,11 +17,17 @@ import br.com.rest.controlefacil.di.module.domain.EventModule;
 import br.com.rest.controlefacil.di.module.domain.ModelModule;
 import br.com.rest.controlefacil.di.module.util.UtilModule;
 import br.com.rest.controlefacil.di.scope.AppScope;
+import br.com.rest.controlefacil.domain.dao.BaseDAO;
 import br.com.rest.controlefacil.domain.dao.CategoryDAO;
+import br.com.rest.controlefacil.domain.dao.PeriodDAO;
+import br.com.rest.controlefacil.domain.dao.ReleaseDAO;
 import br.com.rest.controlefacil.domain.dao.UserDAO;
 import br.com.rest.controlefacil.domain.event.CategoryChangeEvent;
+import br.com.rest.controlefacil.domain.event.CategorySelectedEvent;
 import br.com.rest.controlefacil.domain.event.SelectedIconEvent;
 import br.com.rest.controlefacil.domain.model.Category;
+import br.com.rest.controlefacil.domain.model.Period;
+import br.com.rest.controlefacil.domain.model.Release;
 import br.com.rest.controlefacil.domain.model.User;
 import br.com.rest.controlefacil.ui.adapter.CategoryAdapter;
 import br.com.rest.controlefacil.ui.adapter.CategoryIconsAdapter;
@@ -57,9 +63,17 @@ public interface AppComponent {
 
     List<Category> categories();
 
+    Period period();
+
+    Release release();
+
     User user();
 
     CategoryDAO categoryDAO();
+
+    PeriodDAO periodDAO();
+
+    ReleaseDAO releaseDAO();
 
     UserDAO userDAO();
 
@@ -77,7 +91,11 @@ public interface AppComponent {
 
     SelectedIconEvent selectedIconEvent();
 
+    CategorySelectedEvent categorySelectedEvent();
+
     EventBus providesEventBus();
+
+    void inject(BaseDAO baseDAO);
 
     void inject(CategoryDAO categoryDAO);
 

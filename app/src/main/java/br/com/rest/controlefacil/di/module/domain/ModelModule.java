@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.rest.controlefacil.domain.model.Category;
+import br.com.rest.controlefacil.domain.model.Period;
+import br.com.rest.controlefacil.domain.model.Release;
 import br.com.rest.controlefacil.domain.model.User;
 import dagger.Module;
 import dagger.Provides;
@@ -16,18 +18,28 @@ import dagger.Provides;
 public class ModelModule {
 
     @Provides
-    User providesUser() {
-        return new User();
-    }
-
-    @Provides
     Category providesCategory() {
         return new Category();
     }
 
     @Provides
-    List<Category> providesCategories(){
+    List<Category> providesCategories() {
         return new ArrayList<>();
+    }
+
+    @Provides
+    Period providesPeriod(){
+        return new Period();
+    }
+
+    @Provides
+    Release providesRelease() {
+        return new Release();
+    }
+
+    @Provides
+    User providesUser() {
+        return new User();
     }
 
 }

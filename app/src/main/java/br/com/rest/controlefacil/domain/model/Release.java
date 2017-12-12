@@ -102,4 +102,20 @@ public class Release extends RealmObject{
     public void setPeriod(Period period) {
         this.period = period;
     }
+
+    @Override
+    public String toString() {
+        return "Release{" +
+                "id=" + id +
+                ", value=" + value +
+                ", maturity=" + maturity +
+                ", category=" + category +
+                ", description='" + description + '\'' +
+                ", payment=" + payment +
+                ", fixedRecipe=" + fixedRecipe +
+                ", repeat=" + repeat +
+                ", numberOfTimes=" + numberOfTimes +
+                ", period=" + period +
+                '}';
+    }
 }

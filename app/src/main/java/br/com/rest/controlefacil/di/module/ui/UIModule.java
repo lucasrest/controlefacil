@@ -9,12 +9,14 @@ import javax.inject.Named;
 
 import br.com.rest.controlefacil.R;
 import br.com.rest.controlefacil.ui.activity.BaseActivity;
+import br.com.rest.controlefacil.ui.activity.category.CategoryActivity;
 import br.com.rest.controlefacil.ui.activity.category.CategoryContract;
 import br.com.rest.controlefacil.ui.activity.category.CategoryPresenter;
 import br.com.rest.controlefacil.ui.activity.fotgot_password.ForgotPasswordContract;
 import br.com.rest.controlefacil.ui.activity.fotgot_password.ForgotPasswordPresenter;
 import br.com.rest.controlefacil.ui.activity.login.LoginContract;
 import br.com.rest.controlefacil.ui.activity.login.LoginPresenter;
+import br.com.rest.controlefacil.ui.activity.release.ReleaseActivity;
 import br.com.rest.controlefacil.ui.activity.release.ReleaseContract;
 import br.com.rest.controlefacil.ui.activity.release.ReleasePresenter;
 import br.com.rest.controlefacil.ui.activity.user.UserContract;
@@ -36,11 +38,13 @@ public class UIModule {
     private LoginContract.View loginView;
     private UserContract.View userView;
     private ReleaseContract.View releaseView;
+    private BaseActivity baseActivity;
 
     public UIModule() {
     }
 
     public UIModule(BaseActivity baseActivity) {
+        this.baseActivity = baseActivity;
         if (baseActivity instanceof LoginContract.View)
             this.loginView = (LoginContract.View) baseActivity;
         else if (baseActivity instanceof UserContract.View)
@@ -76,21 +80,37 @@ public class UIModule {
     @Provides
     @Named("DialogExpensesCategoryActivity")
     AlertDialog.Builder providesExpensesAlert() {
-        return new AlertDialog.Builder(new ContextThemeWrapper((Context) categoryView, R.style.DialogExpensesCategory));
+        return new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.DialogExpensesCategory));
     }
 
     @Provides
     @Named("DialogRecipesCategoryActivity")
     AlertDialog.Builder providesRecipesAlert() {
-        return new AlertDialog.Builder(new ContextThemeWrapper((Context) categoryView, R.style.DialogRecipesCategory));
+        return new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.DialogRecipesCategory));
     }
 
     @Provides
     @Named("DialogListIconsCategory")
     AlertDialog.Builder providesDialogListIcons() {
-        Activity activity = (Activity) categoryView;
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.DialogDefault));
+        builder.setTitle(R.string.dialog_list_icons_category_title);
+        return builder;
+    }
+
+    @Provides
+    @Named("DialogPeriod")
+    AlertDialog.Builder providesDialogPediod(){
+        Activity activity = (Activity) releaseView;
         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(activity, R.style.DialogDefault));
-        builder.setTitle("Escolha um ícone");
+        builder.setTitle(R.string.dialog_period_title);
+        return builder;
+    }
+
+    @Provides
+    @Named("DailogCategoryList")
+    AlertDialog.Builder providesDialogCategoryList(){
+        Activity activity = (Activity) releaseView;
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(activity, R.style.DialogDefault));
         return builder;
     }
 
@@ -108,4 +128,15 @@ public class UIModule {
     ReleaseContract.Presenter providesReleasePresenter() {
         return new ReleasePresenter(releaseView);
     }
+
+    private Activity getActivity(){
+        Activity activity;
+        if (baseActivity instanceof CategoryActivity){
+            activity = (Activity) categoryView;
+        }else {
+            activity = (Activity) releaseView;
+        }
+        return activity;
+    }
+
 }

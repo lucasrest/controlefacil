@@ -13,6 +13,7 @@ import br.com.rest.controlefacil.di.module.domain.ModelModule;
 import br.com.rest.controlefacil.di.module.util.UtilModule;
 import br.com.rest.controlefacil.domain.model.Category;
 import br.com.rest.controlefacil.domain.model.CategoryIcons;
+import br.com.rest.controlefacil.domain.model.Period;
 import br.com.rest.controlefacil.domain.model.User;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -40,6 +41,7 @@ public class ControleFacilApplication extends Application {
                     public void execute(Realm realm) {
                         List<Category> categories = CategoryIcons.getDefaultCategories();
                         realm.copyToRealm(categories);
+                        realm.copyToRealm(Arrays.asList(new Period(1L, 30, "Mensal"), new Period(2L, 7, "Semanal"), new Period(3L, 0, "Personalidado")));
                         realm.copyToRealm(new User(1L, "lucas@hotmail.com", "123", "Lucas", ""));
                     }
                 })

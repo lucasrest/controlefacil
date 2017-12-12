@@ -12,14 +12,7 @@ import static br.com.rest.controlefacil.ControleFacilApplication.getAppComponent
  * Created by LUCAS RODRIGUES on 25/11/2017.
  */
 
-public class UserDAO {
-
-    @Inject
-    Realm realm;
-
-    public UserDAO() {
-        getAppComponent().inject(this);
-    }
+public class UserDAO extends BaseDAO{
 
     public static Long autoIncrementId() {
         Long key = 1L;
@@ -58,9 +51,5 @@ public class UserDAO {
 
     public boolean verifyIfExistsUserByEmail(String email) {
         return (realm.where(User.class).equalTo("email", email).findFirst() != null);
-    }
-
-    public void close() {
-        realm.close();
     }
 }

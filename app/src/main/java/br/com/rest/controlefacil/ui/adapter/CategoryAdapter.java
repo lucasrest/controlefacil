@@ -6,12 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
 import br.com.rest.controlefacil.ControleFacilApplication;
 import br.com.rest.controlefacil.R;
+import br.com.rest.controlefacil.domain.event.CategorySelectedEvent;
 import br.com.rest.controlefacil.domain.model.Category;
 import br.com.rest.controlefacil.ui.activity.category.CategoryActivity;
 import butterknife.BindView;
@@ -28,9 +31,24 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Inject
     List<Category> categories;
+    @Inject
+    EventBus eventBus;
+    @Inject
+    CategorySelectedEvent categorySelectedEvent;
+
+    public static final int SCREEN_CATEGORY_ACTIVITY = 0;
+    public static final int SCREEN_RELEASE_ACTIVITY = 1;
+
     private CategoryActivity activity;
+    //0 -> CategoryActivity, 1 -> ReleaseActivity
+    private int screen;
+
+    public void setScreen(int screen) {
+        this.screen = screen;
+    }
 
     public CategoryAdapter() {
+        screen = 0;
         getAppComponent().inject(this);
     }
 
@@ -64,7 +82,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    activity.callDialogCategory(category);
+                    if (screen == SCREEN_CATEGORY_ACTIVITY)
+                        activity.callDialogCategory(category);
+                    else{
+                        categorySelectedEvent.setCategory(category);
+                        eventBus.post(categorySelectedEvent);
+                    }
                 }
             });
         } catch (Exception e) {

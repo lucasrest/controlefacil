@@ -1,105 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="br.com.rest.controlefacil.ui.activity.release.ReleaseActivity">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/edt_value"
-        style="@style/EdtRelease"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="32dp"
-        android:hint="@string/edt_value_hint" />
+        android:layout_height="match_parent">
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/edt_maturity"
-        style="@style/EdtRelease"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edt_value"
-        android:layout_margin="8dp"
-        android:hint="@string/edt_maturity_hint" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/edt_category"
-        style="@style/EdtRelease"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edt_maturity"
-        android:layout_margin="8dp"
-        android:drawableRight="@drawable/ic_arrow_down" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/edt_description"
-        style="@style/EdtRelease"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edt_category"
-        android:layout_margin="8dp"
-        android:hint="@string/edt_description_hint" />
-
-    <android.support.v7.widget.AppCompatCheckBox
-        android:id="@+id/chk_payment"
-        style="@style/ChkRealese"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edt_description"
-        android:layout_margin="8dp"
-        android:text="@string/chk_payment_hint" />
-
-    <android.support.v7.widget.AppCompatCheckBox
-        android:id="@+id/chk_fixed_recipe"
-        style="@style/ChkRealese"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/chk_payment"
-        android:layout_margin="8dp"
-        android:text="@string/chk_fixed_recipe_text" />
-
-    <android.support.v7.widget.AppCompatCheckBox
-        android:id="@+id/chk_repeat"
-        style="@style/ChkRealese"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/chk_fixed_recipe"
-        android:layout_margin="8dp"
-        android:text="@string/chk_repeat_text" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/chk_repeat"
-        android:orientation="horizontal">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/edt_number_of_times"
+            android:id="@+id/edt_value"
             style="@style/EdtRelease"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:hint="@string/edt_numbe_of_times_hint" />
+            android:layout_below="@id/toolbar"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="32dp"
+            android:hint="@string/edt_value_hint"
+            android:inputType="numberDecimal"/>
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/edt_period"
+            android:id="@+id/edt_maturity"
             style="@style/EdtRelease"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edt_value"
+            android:layout_margin="8dp"
+            android:focusable="false"
+            android:hint="@string/edt_maturity_hint" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_background"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/edt_maturity"
+            android:layout_margin="8dp"
+            android:src="@color/colorAccent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/edt_maturity"
+            android:backgroundTint="@android:color/white"
+            android:layout_margin="11dp" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/edt_category"
+            style="@style/EdtRelease"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edt_maturity"
+            android:layout_margin="8dp"
+            android:drawableRight="@drawable/ic_arrow_down"
+            android:focusable="false" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/edt_description"
+            style="@style/EdtRelease"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edt_category"
+            android:layout_margin="8dp"
+            android:hint="@string/edt_description_hint" />
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/chk_payment"
+            style="@style/ChkRealese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edt_description"
+            android:layout_margin="8dp"
+            android:text="@string/chk_payment_hint" />
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/chk_fixed_recipe"
+            style="@style/ChkRealese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chk_payment"
+            android:layout_margin="8dp"
+            android:text="@string/chk_fixed_recipe_text" />
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/chk_repeat"
+            style="@style/ChkRealese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chk_fixed_recipe"
+            android:layout_margin="8dp"
+            android:text="@string/chk_repeat_text" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/chk_repeat"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:drawableRight="@drawable/ic_arrow_down"
-            android:hint="@string/edt_period_hint"
-            android:inputType="none"/>
-    </LinearLayout>
-</RelativeLayout>
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edt_number_of_times"
+                style="@style/EdtRelease"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:hint="@string/edt_numbe_of_times_hint"
+                android:inputType="number"/>
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/edt_period"
+                style="@style/EdtRelease"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/chk_repeat"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/ic_arrow_down"
+                android:focusable="false"
+                android:hint="@string/edt_period_hint"
+                android:inputType="none" />
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
