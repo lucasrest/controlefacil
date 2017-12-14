@@ -67,12 +67,10 @@ public class CategoryDAO extends BaseDAO {
         return realm.where(Category.class).findFirst();
     }
 
-    public Category findLastCategory() {
-        Long id = getMaxId();
-        return realm.where(Category.class).equalTo("id", id).findFirst();
+    public List<Category> findByNameContains(String name){
+        return realm.where(Category.class)
+                .contains("name", name)
+                .findAll();
     }
 
-    public Long getMaxId() {
-       return realm.where(Category.class).max("id").longValue();
-    }
 }

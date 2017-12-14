@@ -40,4 +40,5 @@
     <string name="dialog_period_title">Escolha o periodo</string>
     <string name="dialog_list_icons_category_title">Escolha um ícone</string>
     <string name="search_category_hint">Procure a categoria...</string>
+    <string name="release_title">Lançamento</string>
 </resources>

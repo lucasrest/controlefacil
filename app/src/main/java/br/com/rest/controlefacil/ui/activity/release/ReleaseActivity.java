@@ -10,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -74,6 +75,8 @@ public class ReleaseActivity extends BaseActivity implements ReleaseContract.Vie
     @BindView(R.id.toolbar)
     Toolbar toobar;
 
+    CircleImageView ivIconDialog;
+
     @Inject
     ReleaseContract.Presenter presenter;
     @Inject
@@ -118,12 +121,14 @@ public class ReleaseActivity extends BaseActivity implements ReleaseContract.Vie
     private List<Period> periodList;
     private AlertDialog dialogCategory;
     private AlertDialog listIconsDialog;
-    private Integer currentIcon;
+    private Integer currentIcon = 0;
+    private List<Category> categories;
 
     private int year, month, day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.ExpensesTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_release);
         bindViews();
@@ -132,7 +137,7 @@ public class ReleaseActivity extends BaseActivity implements ReleaseContract.Vie
         presenter.set(releaseDAO);
         presenter.set(periodDAO);
         setSupportActionBar(toobar);
-        getSupportActionBar().setTitle("Lançamento");
+        getSupportActionBar().setTitle(R.string.release_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         edtPeriod.setKeyListener(null);
         edtCategory.setKeyListener(null);
@@ -209,7 +214,7 @@ public class ReleaseActivity extends BaseActivity implements ReleaseContract.Vie
         CircleImageView ivIcon = ButterKnife.findById(dialogView, R.id.iv_icon);
         CircleImageView ivSettings = ButterKnife.findById(dialogView, R.id.iv_icon_settings);
         CircleImageView ivBackgroundSettings = ButterKnife.findById(dialogView, R.id.iv_background_settings);
-
+        SearchView searchView = ButterKnife.findById(dialogView, R.id.search);
         ivBackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -238,15 +243,34 @@ public class ReleaseActivity extends BaseActivity implements ReleaseContract.Vie
             }
         });
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                categories = presenter.findByCategoryName(query);
+                categoryAdapter.setCategories(categories);
+                categoryAdapter.notifyDataSetChanged();
+                return false;
+            }
+        });
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        List<Category> categories = presenter.findAllCategories();
-        categoryAdapter.setCategories(categories);
-        categoryAdapter.setScreen(CategoryAdapter.SCREEN_RELEASE_ACTIVITY);
+        getAllCategories();
         recyclerView.setAdapter(categoryAdapter);
         dialogCategory = categoryListBuilder.create();
         dialogCategory.show();
+    }
+
+    private void getAllCategories() {
+        categories = presenter.findAllCategories();
+        categoryAdapter.setCategories(categories);
+        categoryAdapter.setScreen(CategoryAdapter.SCREEN_RELEASE_ACTIVITY);
     }
 
     @Override
@@ -278,10 +302,11 @@ public class ReleaseActivity extends BaseActivity implements ReleaseContract.Vie
     }
 
     private void init() {
-        currentCategory = presenter.findFirstCategory();
+        getFirstCategory();
         currentPeriod = presenter.findFirstPeriod();
         periodList = presenter.findAllPeriods();
         periods = presenter.periods(periodList);
+        currentIcon = currentCategory.getIcon();
         periodBuilder.setSingleChoiceItems(periods, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -294,7 +319,6 @@ public class ReleaseActivity extends BaseActivity implements ReleaseContract.Vie
             }
         });
         edtMaturity.setText(DateUtils.format());
-        refreshCategory();
         showRepeat(chkRepeat.isChecked());
     }
 
@@ -344,8 +368,7 @@ public class ReleaseActivity extends BaseActivity implements ReleaseContract.Vie
 
     @Subscribe
     public void onEvent(CategorySelectedEvent categorySelectedEvent) {
-        //currentCategory = categorySelectedEvent.getCategory();
-        currentCategory.setIcon(categorySelectedEvent.getCategory().getIcon());
+        currentCategory = categorySelectedEvent.getCategory();
         refreshCategory();
         dialogCategory.dismiss();
     }
@@ -353,7 +376,7 @@ public class ReleaseActivity extends BaseActivity implements ReleaseContract.Vie
     @Subscribe
     public void onEvent(SelectedIconEvent selectedIconEvent) {
         currentIcon = selectedIconEvent.getIcon();
-        ivIcon.setBackgroundResource(currentIcon);
+        ivIconDialog.setBackgroundResource(currentIcon);
         listIconsDialog.dismiss();
     }
 
@@ -367,6 +390,8 @@ public class ReleaseActivity extends BaseActivity implements ReleaseContract.Vie
     protected void onStart() {
         super.onStart();
         eventBus.register(ReleaseActivity.this);
+        categories = presenter.findAllCategories();
+        categoryAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -377,30 +402,31 @@ public class ReleaseActivity extends BaseActivity implements ReleaseContract.Vie
 
     private void callCategoryActivity() {
         startActivity(new Intent(this, CategoryActivity.class));
+        getFirstCategory();
     }
 
     public void callDialogCategory() {
         AlertDialog.Builder builder;
-        int color;
+        final int color;
         builder = expensesBuilder;
         color = R.color.expensesColorSecondaryDark;
 
         View view = getLayoutInflater().inflate(R.layout.dialog_category, null);
         CircleImageView ivBackground = ButterKnife.findById(view, R.id.iv_background);
-        ivIcon = ButterKnife.findById(view, R.id.iv_icon);
+        ivIconDialog = ButterKnife.findById(view, R.id.iv_icon);
         final AppCompatEditText edtName = ButterKnife.findById(view, R.id.edt_name);
         ivBackground.setImageResource(color);
         currentIcon = CategoryIcons.getDefaultCategoryIcon();
 
         String title = "Nova Categoria";
-        ivIcon.setBackgroundResource(currentIcon);
+        ivIconDialog.setBackgroundResource(currentIcon);
         ivBackground.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 callDialogListIcons();
             }
         });
-        ivIcon.setOnClickListener(new View.OnClickListener() {
+        ivIconDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 callDialogListIcons();
@@ -429,8 +455,8 @@ public class ReleaseActivity extends BaseActivity implements ReleaseContract.Vie
                             category.setCategoryType(br.com.rest.controlefacil.domain.enums.Category.getCategoryType(br.com.rest.controlefacil.domain.enums.Category.EXPENSES));
                             presenter.save(category);
                             alertDialog.dismiss();
-                            currentCategory = presenter.findLastCategory();
-                            refreshCategory();
+                            categorySelectedEvent.setCategory(category);
+                            eventBus.post(categorySelectedEvent);
                         }
                     }
                 });
@@ -451,5 +477,10 @@ public class ReleaseActivity extends BaseActivity implements ReleaseContract.Vie
         recyclerView.setAdapter(categoryIconsAdapter);
         listIconsDialog = listIconsBuilder.create();
         listIconsDialog.show();
+    }
+
+    private void getFirstCategory(){
+        currentCategory = presenter.findFirstCategory();
+        refreshCategory();
     }
 }

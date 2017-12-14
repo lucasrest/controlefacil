@@ -30,11 +30,6 @@ public class ReleasePresenter implements ReleaseContract.Presenter {
     }
 
     @Override
-    public Category findLastCategory() {
-        return categoryDAO.findLastCategory();
-    }
-
-    @Override
     public Period findFirstPeriod() {
         return periodDAO.findFirst();
     }
@@ -42,6 +37,11 @@ public class ReleasePresenter implements ReleaseContract.Presenter {
     @Override
     public List<Release> findAll() {
         return releaseDAO.findAll();
+    }
+
+    @Override
+    public List<Category> findByCategoryName(String name) {
+        return categoryDAO.findByNameContains(name);
     }
 
     @Override

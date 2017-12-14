@@ -22,9 +22,9 @@ public interface ReleaseContract {
 
     interface Presenter {
         Category findFirstCategory();
-        Category findLastCategory();
         Period findFirstPeriod();
         List<Release> findAll();
+        List<Category> findByCategoryName(String name);
         List<Category> findAllCategories();
         List<Period> findAllPeriods();
         String[] periods(List<Period> list);
